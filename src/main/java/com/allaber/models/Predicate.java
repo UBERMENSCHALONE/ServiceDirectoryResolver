@@ -1,12 +1,19 @@
 package com.allaber.models;
 
 import com.allaber.enums.OperationType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Predicate {
+
+    @JsonProperty("id")
     private int id;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("operationType")
     private OperationType operationType;
+    @JsonProperty("actualKey")
     private String actualKey;
+    @JsonProperty("argument")
     private String argument;
 
     public Predicate() {
@@ -36,11 +43,11 @@ public class Predicate {
         this.name = name;
     }
 
-    public OperationType getTypeOperation() {
+    public OperationType getOperationType() {
         return operationType;
     }
 
-    public void setTypeOperation(OperationType operationType) {
+    public void setOperationType(OperationType operationType) {
         this.operationType = operationType;
     }
 

@@ -1,25 +1,29 @@
 package com.allaber.models;
 
 import com.allaber.enums.LogicalType;
-import com.allaber.enums.OperationType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 public class PredicateGroup {
+
+    @JsonProperty("id")
     private int id;
+    @JsonProperty("name")
     private String name;
-    private OperationType operationType;
+    @JsonProperty("logicalType")
     private LogicalType logicalType;
+    @JsonProperty("predicates")
     private List<Predicate> predicates;
+    @JsonProperty("predicateGroups")
     private List<PredicateGroup> predicateGroups;
 
     public PredicateGroup() {
     }
 
-    public PredicateGroup(int id, String name, OperationType operationType, LogicalType logicalType, List<Predicate> predicates, List<PredicateGroup> predicateGroups) {
+    public PredicateGroup(int id, String name, LogicalType logicalType, List<Predicate> predicates, List<PredicateGroup> predicateGroups) {
         this.id = id;
         this.name = name;
-        this.operationType = operationType;
         this.logicalType = logicalType;
         this.predicates = predicates;
         this.predicateGroups = predicateGroups;
@@ -39,14 +43,6 @@ public class PredicateGroup {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public OperationType getOperationType() {
-        return operationType;
-    }
-
-    public void setOperationType(OperationType operationType) {
-        this.operationType = operationType;
     }
 
     public LogicalType getLogicalType() {

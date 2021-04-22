@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Service Directory.iml" filepath="$PROJECT_DIR$/Service Directory.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ServiceDirectoryResolver.iml" filepath="$PROJECT_DIR$/ServiceDirectoryResolver.iml" />
     </modules>
   </component>
 </project>
