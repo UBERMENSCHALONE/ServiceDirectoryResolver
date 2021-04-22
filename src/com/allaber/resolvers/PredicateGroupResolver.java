@@ -6,25 +6,36 @@ import com.allaber.models.House;
 import com.allaber.models.Predicate;
 import com.allaber.models.PredicateGroup;
 
-public class PredicateGroupResolver {
-    public boolean resolve(PredicateGroup predicateGroup, House house) {
-        if (predicateGroup.getLogicalType() == LogicalType.ALL) {
-            for (Predicate predicate : predicateGroup.getPredicates()) {
-                if ( !(OperationFactory.getInstance(predicate.getTypeOperation()).test(house.getParams().get(predicate.getActualKey()), predicate.getArgument()))) {
-                return false;
-                }
-            }
-            return true;
-        }
+import java.util.HashMap;
+import java.util.Map;
 
-        if (predicateGroup.getLogicalType() == LogicalType.ANY) {
-            for (Predicate predicate : predicateGroup.getPredicates()) {
-                if ( !(OperationFactory.getInstance(predicate.getTypeOperation()).test(house.getParams().get(predicate.getActualKey()), predicate.getArgument()))) {
-                    return true;
-                }
-            }
-            return false;
+public class PredicateGroupResolver {
+    public static boolean resolve(PredicateGroup predicateGroup, Map<String, String> map) {
+
+        if(predicateGroup.getLogicalType() == LogicalType.ALL){
+            return (getPredicateGroupAll(predicateGroup, map)) && (getPredicateAll(predicateGroup, map));
+        } else {
+            return (getPredicateGroupAny(predicateGroup, map)) && (getPredicateAny(predicateGroup, map));
         }
-        return false;
+    }
+
+    private static boolean getPredicateGroupAll(PredicateGroup predicateGroup, Map<String, String> map){
+        return predicateGroup.getPredicateGroups().stream().allMatch(s ->
+                PredicateGroupResolver.resolve(s, map));
+    }
+
+    private static boolean getPredicateAll(PredicateGroup predicateGroup, Map<String, String> map){
+        return predicateGroup.getPredicates().stream().allMatch(s ->
+                OperationFactory.getInstance(s.getTypeOperation()).test(map.get(s.getActualKey()), s.getArgument()));
+    }
+
+    private static boolean getPredicateGroupAny(PredicateGroup predicateGroup, Map<String, String> map){
+        return predicateGroup.getPredicateGroups().stream().anyMatch(s ->
+                PredicateGroupResolver.resolve(s, map));
+    }
+
+    private static boolean getPredicateAny(PredicateGroup predicateGroup, Map<String, String> map){
+        return predicateGroup.getPredicates().stream().anyMatch(s ->
+                OperationFactory.getInstance(s.getTypeOperation()).test(map.get(s.getActualKey()), s.getArgument()));
     }
 }
