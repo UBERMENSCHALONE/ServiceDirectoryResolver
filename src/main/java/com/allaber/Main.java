@@ -1,6 +1,5 @@
 package com.allaber;
 
-import com.allaber.enums.LogicalType;
 import com.allaber.jackson.Converter;
 import com.allaber.models.Predicate;
 import com.allaber.models.PredicateGroup;

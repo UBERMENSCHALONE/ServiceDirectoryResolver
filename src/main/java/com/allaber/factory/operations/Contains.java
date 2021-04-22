@@ -1,4 +1,6 @@
-package com.allaber.factory;
+package com.allaber.factory.operations;
+
+import com.allaber.factory.Operation;
 
 public class Contains implements Operation {
 
